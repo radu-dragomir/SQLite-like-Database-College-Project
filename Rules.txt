@@ -1,0 +1,126 @@
+În următoarea descriere, | înseamnă logică SAU și [] înseamnă că parametrul nu este obligatoriu.
+
+Implementați diferite clase C ++ care vă vor permite să interpretați diferite comenzi SQL primite de la consolă sau dintr-un fișier:
+
+1.      Soluția va fi utilizată pentru a gestiona o singură bază de date - doar una, cu mai multe tabele
+
+2.      comenzile acceptate pentru gestionarea structurii bazei de date sunt CREATE TABLE, DROP TABLE, DISPLAY TABLE
+
+1.      CREATE TABLE nume_tabel [DACĂ NU EXISTĂ] ((nume_coloană_1, tip, dimensiune, valoare_implicită), (nume_coloană_2, tip, dimensiune, valoare_implicită), ...) - comanda ar trebui să primească cel puțin 1 coloană
+
+2.      DROP TABLE table_name
+
+3.      DISPLAY TABLE table_name
+
+4.      tipurile acceptate sunt text, integer, float
+
+3.      Comenzile CRUD acceptate pentru gestionarea datelor sunt INSERT, SELECT, UPDATE , DELETE
+
+4.      Comanda acceptată pentru comenzile CRUD este (utilizați https://www.sqlite.org/lang.html pentru a vă face o idee)
+
+1.      INSERT INTO nume_tabela VALUES(...); valorile sunt separate prin, și au numărul și ordinea exacta ca definiția tabelului
+
+2.      DELETE FROM nume_tabela WHERE nume_coloană = valoare (DELETE permite doar o coloană în clauza WHERE)
+
+3.      SELECT (cel_putin_o_coloana, ...) | ALL FROM nume_tabela [WHERE nume_coloană = valoare] - clauza WHERE este opțională
+
+4.      UPDATE nume_tabela SET nume_coloană = valoare WHERE nume_coloană = valoare (coloana SET poate fi diferită de cea WHERE; UPDATE merge doar pentru o coloana)
+
+În acest moment ar trebui să dezvoltați funcții care vor primi un șir de caractere ( char * sau un string C ++) și identificați comenzile. Dacă comanda nu este bine formatată, trebuie să returnați un cod/mesaj de eroare.
+
+ Începeți cu o funcție/clasa generică care identifică tipul de comandă (SELECT, UPDATE etc.)
+
+·        Implementați clase specifice care vor valida un format și parametri specifici tipului de comandă
+
+·        Utilizați vectori pentru a stoca datele comenzilor
+
+·        Definiți clasele pentru entitățile care sunt descrise de un substantiv
+
+Rezultate:
+
+·        Un singur fișier .h care conține toate definițiile și implementarea claselor
+
+·        Un singur fișier sursă C ++ (utilizați extensia .cpp) care conține main ()
+
+·        O singură aplicație consolă C++ care va permite utilizatorilor să scrie comenzi din lista anterioară. Ieșirea pentru fiecare comandă este
+
+·        Mesaj de eroare dacă comanda nu este ok
+
+·        Detalii despre parametrii comenzii dacă comanda este ok
+
+Definirea a minim 5 clase care au legatura cu cerinta proiectului
+Fiecare clasa trebuie sa contina minim un camp definit dinamic gestionat printr-un pointer si minim un vector definit static; trebuie abordate atat siruri de caractere (char*) cat si vectori de valori numerice
+In solutie trebuie sa existe minin o clasa ce defineste un camp static si minim o clasa ce defineste un camp constant
+Toate atributele se definesc pe zona privata a clasei
+Pentru fiecare atribut se defineste o interfata publica (functii accesor) ce permite citirea si scrierea valorii; functiile de modificare trebuie sa contina minim o regula de validare a valorii
+Fiecare clasa contine minim 2 metode generice de prelucrare/afisare a atributelor
+Fiecare clasa contine minim 2 constructori cu parametri, constructor de copiere, destructor si forma supraincarcata a operatorului =
+Pentru fiecare clasa se supraincarca obligatoriu >> si <<
+Pentru fiecare clasa se supraincarca obligatoriu:
+
+    operatorul pentru idexare []
+    minim un operator matematic (+,-,* sau /)
+    ++ sau -- (cu cele 2 forme)
+    operatorul cast (catre orice tip) explicit sau implicit
+    operatorul pentru negatie !
+    un operator conditional (<.>,=<,>=)
+    operatorul pentru testarea egalitatii dintre 2 obiecte ==
+
+Toate clasele sunt definite intr-un singur fisier sursa
+Testarea claselor (metoda main) se gaseste intr-un alt fisier sursa
+
+
+    Toate comenzile implementate în modului anterior vor genera date ce vor fi salvate în fișiere și/sau vor fi afișate la consolă;
+    Interfața aplicației este tot de tipul consolă și utilizatorul introduce comenzile una după alta;
+    Folosind datele din fișiere se vor introduce validări care să nu permită utilizatorului să creeze 2 tabele cu aceeași denumire sau să execute comenzi INSERT, DELETE, UPDATE pe tabele care nu există sau nu au structura corectă;
+    Comenzile de tip INSERT, DELETE și UPDATE vor produce efecte în fișierele de date asociate tabelelor
+    Comenzile de tip CREATE TABLE și DROP TABLE vor produce efecte în structura de fișiere
+    Entitățile care gestionează fișierele și operațiile pe fișiere se implementează prin clase (codul sursa prin care sunt accesate fișierele trebuie sa fie inclus în metode care să aparțină unor clase noi sau existente)
+
+Tipuri de fișiere utilizate în această fază
+
+    Fișiere de tip text de comenzi transmise ca argumente pentru funcția main(). Sunt procesate la pornirea aplicației
+    Fișiere de tip text/binar de configurare încărcate la pornirea aplicației. Fișierele conțin descrierea tabelelor existente. Fișierele au denumiri predefinite (alese de programatori) și locația lor este cunoscută. Această informație nu este solicitată utilizatorilor.
+    Fișiere de tip binar ce conțin datele din tabele. Fiecare tabelă are asociat un fișier binar. Crearea unei tabele conduce la crearea fișierului asociat. Ștergerea tabelei conduce la ștergerea fișierului.
+    Fișiere CSV ce conțin date ce pot fi importate în tabele (o alternativă la o secvență de comenzi INSERT).
+
+Cerințe specifice
+
+    Se implementează un modul (una sau mai multe clase) prin care aplicația primește unul sau mai multe fișiere de intrare, de tip text, prin argumentele funcției main
+
+Exemplu: dacă aplicația se numește proiectPOO.exe atunci ea este lansată în execuție cu comanda
+
+proiectPOO.exe comenzi.txt [comenzi2.txt];
+
+Scenariu posibil: Aplicația primește un fișier de comenzi prin care sunt definite tabelele și indexul pentru acestea prin comenzi de tipul CREATE. Un al 2-lea fișier ar conține comenzi de tipul INSERT.
+
+    Pot fi folosite doar fișiere text ca argumente pentru funcția main(). Maxim 5
+    Aplicația poate fi pornită fără a primi argumente prin funcția main (se lansează în execuție cu proiectPOO.exe).
+    Descrierea tabelelor (nume coloane, tipul lor, etc) existente în sistem se va stoca în fișiere text de configurare asociate acestor structuri (numele fișierului poate corespunde numelui tabelei). Fișierul sau fișierele de configurare sunt cunoscute de programator și sunt accesate automat de aplicație la start.
+
+Recomandare: folosind fișiere binare sau text aplicația încarcă descrierea tabelelor din sistem. La pornire aplicația știe ce tabele există pe baza acestor fișiere de configurare.
+
+    Toate datele inserate de utilizatori în tabele prin comenzi INSERT se vor stoca în fișiere binare
+    Fiecare tabelă din sistem va avea asociat un fișier binar ce are numele tabelei și o extensie la alegere
+    Se implementează un modul (una sau mai multe clase) prin care datele aplicației sunt salvate în fișiere binare. Datele aplicației se considera a fi acele date obținute din fișierele text primite ca argumente pentru main sau date încărcate de utilizatori în timpul sesiunii de lucru prin comenzi de tip INSERT sau IMPORT
+
+Recomandare: pentru a gestiona tipuri diferite de date este recomandată stocarea datelor sub formă de șiruri de bytes. La citirea lor se va folosi descrierea tabelei pentru a le converti la tipurile primitive asociate (string, numeric întreg, etc)
+
+    Se implementează modulul prin care execuția comenzilor de tip SELECT sau DISPLAY TABLE generează automat rapoarte pentru datele afișate (de ex. lista date dintr-o anumită tabelă, etc ) la consola dar și în fișiere text (numele fișierelor text sunt generate automat).
+
+De exemplu: pentru o comanda SELECT se va genera fișierul text SELECT_1.txt ce conține rezultatul acelei comenzi. Pentru următoarea comanda SELECT se generează SELECT_2.txt. Rezultatele afișate de comenzi pe ecran se vor salva și în aceste fișiere.
+
+    Aplicația permite încărcarea de date din fișiere CSV (comma separated values);  simbolul ales pentru a separa valorile (, ; # | sau altul) este ales de programator și este folosit pentru toate fișierele CSV ale aplicației. Importul fișierelor CSV se va face prin adăugarea comenzii
+
+IMPORT nume_tabela nume_fisier.CSV
+
+    Dacă fișierul CSV nu conține separatorul așteptat sau nu are structura aferentă tabelei indicate atunci este afișat un mesaj de eroare care indică separatorul și structura tabelei respective
+    Pentru comanda IMPORT cele 2 argumente sunt obligatorii
+
+    Faza 2 se considera realizata dacă sunt implementate cel puțin 75% dintre cerințe
+
+Cerințe tehnice:
+
+    Minim 3 clase noi ce conțin relații de tipul has-a cu alte clase
+    Adăugarea în clasele existente sau în clasele noi a minim 2 vectori de obiecte. Minim unul dintre vectori este dinamic.
+    Entitățile care gestionează fișierele și operațiile pe fișiere se implementează prin clase (codul sursa prin care sunt accesate fișierele trebuie sa fie inclus în metode care să aparțină unor clase noi sau existente)
